@@ -1,0 +1,1 @@
+python3 solver.py logs/sync_20260412_192364.log

@@ -1,0 +1,12 @@
+id
+info config
+env
+info filesys
+ls
+cat config/device.txt
+cd journal
+ls
+cat last.txt
+cat receipt_0003.txt
+nvram read 53264
+exit

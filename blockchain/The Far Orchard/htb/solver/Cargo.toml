@@ -1,0 +1,19 @@
+[package]
+name = "solver"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+validator = { path = "../../challenge" }
+halo2_gadgets = { path = "../../challenge/crates/halo2_gadgets" }
+halo2_proofs = { path = "../../challenge/crates/halo2_proofs" }
+pasta_curves = "0.5"
+ff = "0.13"
+group = "0.13"
+hex = "0.4"
+rand = "0.8"
+
+[patch.crates-io]
+halo2_gadgets = { path = "../../challenge/crates/halo2_gadgets" }
+halo2_proofs = { path = "../../challenge/crates/halo2_proofs" }
+halo2_poseidon = { path = "../../challenge/crates/halo2_poseidon" }

@@ -1,0 +1,48 @@
+{
+  "_comment": "a_fault_in_the_cinder - single source of truth. PUBLIC formats only: no secrets, no flag, no target policy digest, no working fault config.",
+  "spec_version": "1.0",
+  "cpu": { "arch": "cortex-m3", "clock_hz": 24000000 },
+  "spi": { "clock_hz": 4000000, "mode": 0 },
+  "uart": { "baud": 115200 },
+  "recorder": {
+    "tick_hz": 24000000,
+    "channels": ["RESET", "RECOVERY_STRAP", "CS_FLASH", "CS_SE", "SCK", "MOSI", "MISO", "SE_IRQ", "GLITCH_OUT"]
+  },
+  "flash": {
+    "size": 2097152,
+    "slots": {
+      "production": { "base": 0, "max": 262144, "kind": 1, "counter": 5, "load": 536879104, "entry": 1024 },
+      "recovery":   { "base": 262144, "max": 262144, "kind": 2, "counter": 2, "load": 536879104, "entry": 1024 }
+    }
+  },
+  "manifest": {
+    "magic": "CNDR", "version": 1, "header_size": 128,
+    "fields": {
+      "magic": 0, "version": 4, "header_size": 6, "kind": 8, "payload_size": 12,
+      "load": 16, "entry": 20, "counter": 24, "digest": 28, "signature": 60, "header_crc": 124
+    }
+  },
+  "counters": { "trusted_min": 5 },
+  "se": {
+    "opcodes": {
+      "STARTUP": 16, "READ_NV_COUNTER": 17, "GET_RECOVERY_CHALLENGE": 18,
+      "VERIFY_RECOVERY_TICKET": 19, "EXTEND_BOOT_PCR": 20, "LOCK_MEASUREMENT": 21,
+      "OPEN_FACTORY_SESSION": 32, "UNSEAL": 33, "READ_FIFO": 34, "GET_STATUS": 35
+    },
+    "status": { "OK": 0, "AUTH_DENIED": 1, "BUSY": 2, "READY": 3, "ERROR": 255 },
+    "frame": "opcode:u8 seq:u8 status:u8 payload_length:u16le payload crc16:u16le",
+    "crc16": { "name": "CRC-16/CCITT-FALSE", "poly": 4129, "init": 65535, "refin": false, "refout": false, "xorout": 0 },
+    "wait_byte": 255,
+    "fifo_max_payload": 32,
+    "record_object_handle": 1
+  },
+  "ticket": { "magic": "RCVT", "version": 1, "size": 144, "signed_prefix": 80 },
+  "labels": { "boot": "CINDER-BOOT-v1", "session": "CINDER-SESSION-v1", "response": "RESPONSE" },
+  "service_banner": "CINDER RECOVERY/1",
+  "capture": {
+    "magic": "CINDCAP1", "format_gzip_vcd": 1,
+    "max_events": 200000, "max_uncompressed": 8388608, "max_duration_ticks": 24000000
+  },
+  "ports": { "control": 5000, "capture": 5001, "service": 5002 },
+  "rate_limit": { "target_period_s": 1.25, "burst": 2, "ticket_wait_ms": 750 }
+}

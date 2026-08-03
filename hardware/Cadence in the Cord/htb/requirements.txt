@@ -1,0 +1,4 @@
+# cadence_in_the_cord — solver dependencies (Python 3.12).
+# Both solvers (solve.py = .sr input, solve_csv.py = PulseView CSV input) use
+# only NumPy plus the standard library (zipfile, configparser, argparse, re).
+numpy==2.5.1
