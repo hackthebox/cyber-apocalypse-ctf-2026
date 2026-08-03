@@ -1,0 +1,5 @@
+# what_the_shard_displayed — solver dependencies (Python 3.12).
+# solve.py uses NumPy + Pillow plus the standard library (zipfile, configparser,
+# argparse, re). Pillow is required to render the reconstructed frame PNGs.
+numpy==2.5.1
+pillow==12.3.0

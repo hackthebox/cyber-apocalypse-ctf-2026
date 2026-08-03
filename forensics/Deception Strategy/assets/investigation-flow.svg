@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="390" viewBox="0 0 1200 390">
+  <defs>
+    <style>
+      .bg { fill: #10151d; }
+      .box { fill: #192331; stroke: #9fef00; stroke-width: 2; rx: 12; }
+      .title { fill: #9fef00; font: bold 23px sans-serif; }
+      .text { fill: #eef5ff; font: 17px monospace; }
+      .note { fill: #aebdce; font: 15px sans-serif; }
+      .arrow { stroke: #9fef00; stroke-width: 3; fill: none; marker-end: url(#head); }
+    </style>
+    <marker id="head" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#9fef00"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="390"/>
+  <rect class="box" x="35" y="70" width="315" height="230"/>
+  <text class="title" x="60" y="108">network.pcap</text>
+  <text class="text" x="60" y="150">discord-cdn.com</text>
+  <text class="text" x="60" y="180">/api/v9/experiments</text>
+  <text class="text" x="60" y="210">Discord/1.0</text>
+  <text class="text" x="60" y="240">172.22.53.221</text>
+  <text class="note" x="60" y="275">Lead: inspect Discord activity</text>
+
+  <path class="arrow" d="M350 185 L435 185"/>
+
+  <rect class="box" x="440" y="40" width="320" height="290"/>
+  <text class="title" x="465" y="78">Logfile.PML</text>
+  <text class="text" x="465" y="120">Discord.exe PID 7664</text>
+  <text class="text" x="465" y="150">Load Image: d3d11.dll</text>
+  <text class="text" x="465" y="180">21:28:11.319041</text>
+  <text class="text" x="465" y="220">rundll32.exe PID 8152</text>
+  <text class="text" x="465" y="250">SessionToken REG_BINARY</text>
+  <text class="note" x="465" y="290">Path + timestamp + runtime salt</text>
+
+  <path class="arrow" d="M760 185 L845 185"/>
+
+  <rect class="box" x="850" y="55" width="315" height="260"/>
+  <text class="title" x="875" y="93">C.zip / d3d11.dll</text>
+  <text class="text" x="875" y="135">GetClipboardText()</text>
+  <text class="text" x="875" y="165">Rc4Crypt()</text>
+  <text class="text" x="875" y="195">SendTelemetry()</text>
+  <text class="text" x="875" y="225">Host + URI match PCAP</text>
+  <text class="note" x="875" y="270">Reverse, derive key, decrypt</text>
+
+  <path class="arrow" d="M1010 315 L1010 360 L190 360 L190 305"/>
+  <text class="note" x="480" y="350">Decrypted clipboard → wallet seed phrase</text>
+</svg>

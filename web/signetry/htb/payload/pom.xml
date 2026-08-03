@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>local.poc</groupId>
+    <artifactId>signetry-payload</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <!--
+        Official-solver payload generator for the "Signetry" challenge.
+        Crafts a poisoned DL4J model ZIP whose preprocessor.bin sidecar carries a
+        Java deserialization gadget chain built from ONLY classes bundled with
+        DL4J 1.0.0-M2.1 (JDK + nd4j's shaded jackson POJONode + shaded guava
+        UsingToStringOrdering + the JDK's TemplatesImpl). Zero non-DL4J deps on the
+        victim. Target runtime: Java 11 — TemplatesImpl needs no add-opens flags there
+        and Jackson reaches getOutputProperties() before the transient getStylesheetDOM().
+    -->
+
+    <properties>
+        <maven.compiler.release>11</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <dl4j.version>1.0.0-M2.1</dl4j.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.deeplearning4j</groupId>
+            <artifactId>deeplearning4j-core</artifactId>
+            <version>${dl4j.version}</version>
+        </dependency>
+
+        <!-- Slim native backend: linux-x86_64 only (matches the challenge container). -->
+        <dependency>
+            <groupId>org.nd4j</groupId>
+            <artifactId>nd4j-native</artifactId>
+            <version>${dl4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.nd4j</groupId>
+            <artifactId>nd4j-native</artifactId>
+            <version>${dl4j.version}</version>
+            <classifier>linux-x86_64</classifier>
+        </dependency>
+
+        <!-- Build-time only: patch BaseJsonNode.writeReplace and synth the translet bytecode.
+             The TARGET does not need javassist. -->
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.29.2-GA</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>signetry-payload</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

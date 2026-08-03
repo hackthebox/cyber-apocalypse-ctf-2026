@@ -1,0 +1,10 @@
+# Author solution: the perimeter replaces client forwarding metadata.
+
+:8000 {
+	reverse_proxy 127.0.0.1:5000 {
+		# The perimeter owns the forwarding chain.
+		header_up X-Real-IP {remote_host}
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Forwarded-Proto {scheme}
+	}
+}
